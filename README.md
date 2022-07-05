@@ -4,9 +4,10 @@ This application is my first approach to the Angular and Laravel Frameworks, its
 ### Functionality
 - Register new users
 - Log in functionality to access options that are hidden otherwise
+- Update data from user
 - Create new categories
 - Create new posts and update them
-- DB stored Apache Web Server provided by XAMPP
+- DB stored in Apache Web Server provided by XAMPP
 
 ## Installation
 To install this project follow the next steps:
