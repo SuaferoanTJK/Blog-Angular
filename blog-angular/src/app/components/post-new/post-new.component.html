@@ -1,0 +1,110 @@
+<div class="mt-9">
+  <div class="container mx-auto">
+    <h1 class="text-center text-5xl font-bold mb-4">{{ page_title }}</h1>
+    <p class="text-center">
+      {{ paragraph }}
+    </p>
+    <div
+      class="bg-lime-500 w-3/5 mx-auto mt-2 mb-4 rounded p-1"
+      *ngIf="status == 'success' && isEdit == false"
+    >
+      <p class="text-center font-bold mb-1 text-white">
+        Post creation successful
+      </p>
+      <a
+        routerLink="/home"
+        class="flex justify-center font-bold cursor-pointer underline text-blue-900 hover:text-blue-700"
+        >Back to home</a
+      >
+    </div>
+    <div
+      class="bg-red-400 w-3/5 mx-auto mt-2 mb-4 rounded p-1"
+      *ngIf="status == 'error'"
+    >
+      <p class="text-center font-bold text-white">Post creation has failed</p>
+    </div>
+    <div class="flex flex-col md:flex-row items-center">
+      <div class="md:w-3/5 w-4/5 mt-5 lg:mt-0">
+        <form
+          class="mt-4"
+          #createPostForm="ngForm"
+          (ngSubmit)="onSubmit(createPostForm)"
+        >
+          <div class="mb-3">
+            <label for="title" class="block font-bold">Title</label>
+            <input
+              type="text"
+              id="title"
+              name="title"
+              placeholder="Enter the title of the post"
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-gray-300 focus:shadow-none"
+              #title="ngModel"
+              [(ngModel)]="post.title"
+              required
+            />
+            <small
+              *ngIf="title.invalid && title.touched"
+              class="text-red-800 font-bold"
+              >Title isn't valid</small
+            >
+          </div>
+          <div class="mb-3">
+            <label for="content" class="block font-bold">Content</label>
+            <textarea
+              type="text"
+              id="content"
+              name="content"
+              rows="3"
+              placeholder="Enter the content of the post"
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-gray-300 focus:shadow-none"
+              #content="ngModel"
+              [(ngModel)]="post.content"
+            ></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="category" class="block font-bold">Category</label>
+            <select
+              id="category"
+              name="category"
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-gray-300 focus:shadow-none"
+              #category="ngModel"
+              [(ngModel)]="post.category_id"
+            >
+              <option
+                *ngFor="let category of categories"
+                value="{{ category.id }}"
+              >
+                {{ category.name }}
+              </option>
+            </select>
+          </div>
+          <div>
+            <label for="image" class="block font-bold"
+              >Post Image (Max size: 3MB)
+            </label>
+            <div *ngIf="post.image">
+              <img class="w-80" src="{{ url + '/post/image/' + post.image }}" />
+            </div>
+            <input
+              type="file"
+              accept=".jpg,.jpeg,.png,.gif"
+              id="image"
+              name="image"
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-gray-300 focus:shadow-none"
+              (change)="uploadFile($event)"
+            />
+          </div>
+          <input
+            type="submit"
+            value="{{ submit_text }}"
+            class="mt-5 rounded w-full bg-lime-700 hover:bg-lime-600 px-4 py-3 cursor-pointer font-bold text-white disabled:opacity-25 disabled:cursor-default disabled:hover:bg-lime-700"
+            [disabled]="createPostForm.invalid"
+          />
+        </form>
+      </div>
+      <div class="md:w-2/5">
+        <img class="w-full" src="assets/images/post.png" />
+      </div>
+    </div>
+  </div>
+</div>

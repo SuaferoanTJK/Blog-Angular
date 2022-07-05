@@ -1,0 +1,126 @@
+<div class="flex flex-col h-screen justify-between">
+  <!-- NAVBAR -->
+  <nav class="px-2 sm:px-4 py-5 bg-gray-800">
+    <div class="container flex flex-wrap justify-between items-center mx-auto">
+      <a routerLink="" class="cursor-pointer flex">
+        <img
+          class="object-contain h-10 mr-3"
+          src="assets/images/angular.png"
+          alt="logo"
+        />
+        <p
+          class="self-center text-xl font-semibold whitespace-nowrap dark:text-white"
+        >
+          {{ title }}
+        </p>
+      </a>
+      <div class="flex items-center md:order-2">
+        <button
+          type="button"
+          id="user-menu-button"
+          data-dropdown-toggle="userOptions"
+          class="flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
+          name="close"
+        >
+          <img
+            class="w-10 h-10 rounded-full"
+            src="assets/images/avatar.png"
+            alt="user photo"
+            *ngIf="!identity.image"
+          />
+          <img
+            class="w-10 h-10 rounded-full object-cover"
+            src="{{ url + '/user/avatar/' + identity.image }}"
+            alt="user photo"
+            *ngIf="identity.image"
+          />
+        </button>
+        <!-- OPTIONS -->
+        <div
+          class="hidden z-50 my-4 text-base list-none bg-white rounded shadow dark:bg-gray-700 dark:divide-gray-600"
+          id="userOptions"
+        >
+          <div class="py-3 px-4" *ngIf="identity && identity.name">
+            <span class="block text-sm text-gray-900 dark:text-white">{{
+              identity.name + " " + identity.surname
+            }}</span>
+            <span
+              class="block text-sm font-medium text-gray-500 truncate dark:text-gray-400"
+              >{{ identity.email }}</span
+            >
+          </div>
+          <ul class="py-1 min-w-full w-40">
+            <li>
+              <a
+                routerLink="/login"
+                class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                *ngIf="!identity.name"
+                >Login</a
+              >
+            </li>
+            <li>
+              <a
+                routerLink="/register"
+                class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                *ngIf="!identity.name"
+                >Register</a
+              >
+            </li>
+            <li>
+              <a
+                routerLink="/new-post"
+                class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                *ngIf="identity && identity.name"
+                >Create post</a
+              >
+            </li>
+            <li>
+              <a
+                routerLink="/new-category"
+                class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                *ngIf="identity && identity.name"
+                >Create category</a
+              >
+            </li>
+            <li>
+              <a
+                routerLink="/profile/{{ identity.sub }}"
+                class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                *ngIf="identity && identity.name"
+                >My profile</a
+              >
+            </li>
+            <li>
+              <a
+                routerLink="/settings"
+                class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                *ngIf="identity && identity.name"
+                >Settings</a
+              >
+            </li>
+            <li>
+              <a
+                routerLink="/logout/1"
+                routerLinkActive="router-link-active"
+                class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                *ngIf="identity && identity.name"
+                >Sign out</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <!-- CONTENT -->
+  <div class="container mx-auto mb-auto">
+    <router-outlet></router-outlet>
+  </div>
+  <!-- FOOTER -->
+  <footer class="mt-5 px-2 sm:px-4 py-7 bg-gray-800">
+    <p class="text-center text-white block">
+      Full-Stack Development &copy; July 2022
+    </p>
+    <p class="text-center text-white block">Angular & Laravel</p>
+  </footer>
+</div>
